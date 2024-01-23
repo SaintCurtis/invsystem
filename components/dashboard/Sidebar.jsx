@@ -12,11 +12,23 @@ export default function Sidebar() {
       href:"/dashboard/inventory"
     },
     {
-      title:"Items Groups",
+      title:"Categories",
       href:"/dashboard/inventory"
     },
     {
-      title:"Inventory Adjustments",
+      title:"Brands",
+      href:"/dashboard/inventory"
+    },
+    {
+      title:"Units",
+      href:"/dashboard/inventory"
+    },
+    {
+      title:"Warehouse",
+      href:"/dashboard/inventory"
+    },
+    {
+      title:"Inventory Adjustment",
       href:""
     },
   ];

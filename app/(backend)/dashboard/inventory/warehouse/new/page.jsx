@@ -1,5 +1,6 @@
 "use client"
 
+import SelectInput from '@/components/FormInput/SelectInput';
 import SubmitButton from '@/components/FormInput/SubmitButton';
 import TextAreaInput from '@/components/FormInput/TextAreaInput';
 import TextInput from '@/components/FormInput/TextInput';
@@ -7,7 +8,17 @@ import FormHeader from '@/components/dashboard/FormHeader';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function NewCategory() {
+export default function NewWarehouse() {
+  const selectOptions = [
+    {
+      label: "Headquarters",
+      value: "headquarters"
+    },
+    {
+      label: "Branch",
+      value: "branch"
+    },
+  ]
   const {
     register,
     handleSubmit,
@@ -23,7 +34,7 @@ export default function NewCategory() {
     setLoading(true);
     const baseUrl = "http://localhost:3000"
     try {
-      const response = await fetch(`${baseUrl}/api/categories`,{
+      const response = await fetch(`${baseUrl}/api/warehouse`,{
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -45,21 +56,35 @@ export default function NewCategory() {
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Category" href="/dashboard/inventory" />
+      <FormHeader title="New Warehouse" href="/dashboard/inventory" />
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-3xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3"
       >
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-          <TextInput
-          label="Category Title"
+<SelectInput 
+name="type"
+label="Select the warehouse type"
+register={register} className='w-full'
+options={selectOptions}
+/>
+        <TextInput
+          label="Warehouse Title"
           name="title"
+          register={register}
+          errors={errors}
+          options = {selectOptions}
+          className='w-full'
+          />
+          <TextInput
+          label="Warehouse Location"
+          name="location"
           register={register}
           errors={errors}
           />
           <TextAreaInput
-          label="Category Description"
+          label="Warehouse Description"
           name="description"
           register={register}
           errors={errors}
@@ -67,7 +92,7 @@ export default function NewCategory() {
           
           
         </div>
-        <SubmitButton isLoading={loading} title="category" />
+        <SubmitButton isLoading={loading} title="Warehouse" />
       </form>
       {/* Header */}
       {/* Header */}
