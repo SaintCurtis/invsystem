@@ -2,7 +2,26 @@ import { NextResponse } from "next/server";
 
 export async function POST (request){
     try {
-        const data = await request.json()
+
+        const data = await request.json();
+            // title,
+            // categoryId,
+            // sku,
+            // barcode,
+            // qty,
+            // unitId,
+            // brandId,
+            // supplierId,
+            // reOrderPoint,
+            // itemId,
+            // imageUrl,
+            // weight,
+            // dimensions,
+            // sellingPrice,
+            // buyingPrice,
+            // taxRate,
+            // notes,
+            // description
         console.log(data);
         return NextResponse.json(data);
     } catch (error) {

@@ -1,15 +1,16 @@
 "use client"
 
+import ImageInput from '@/components/FormInput/ImageInput';
 import SelectInput from '@/components/FormInput/SelectInput';
 import SubmitButton from '@/components/FormInput/SubmitButton';
 import TextAreaInput from '@/components/FormInput/TextAreaInput';
 import TextInput from '@/components/FormInput/TextInput';
 import FormHeader from '@/components/dashboard/FormHeader';
-import { UploadButton } from '@/lib/uploadthing';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function NewItem() {
+  const [imageUrl, setImageUrl] = useState("")
   const categories = [
     {
       label: 'Electronics',
@@ -79,27 +80,34 @@ export default function NewItem() {
   
   const [loading, setLoading] = useState(false);
   async function onSubmit(data) {
-    console.log(data)
+    data.imageUrl = imageUrl;
+    console.log(data);
     setLoading(true);
-    const baseUrl = "http://localhost:3000"
+    const baseUrl = "http://localhost:3000";
+  
     try {
-      const response = await fetch(`${baseUrl}/api/items`,{
+      const response = await fetch(`${baseUrl}/api/items`, {
         method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
-      })
-      console.log(response)
-      if(response.ok){
-        console.log(response)
-        setLoading(false)
+        body: JSON.stringify(data),
+      });
+  
+      // Check if the response is JSON
+      const responseBody = await response.json();
+  
+      console.log('Response:', responseBody);
+  
+      if (response.ok) {
+        console.log(response);
+        setLoading(false);
         reset();
+      } else {
+        console.error('Error:', response.status, response.statusText);
       }
-      
     } catch (error) {
-      console.error('Error:',error)
-      
+      console.error('Error:', error.message);
     }
   }
   return (
@@ -234,25 +242,10 @@ export default function NewItem() {
           register={register}
           errors={errors}
           />
-          <div className="sm:col-span-2">
-          <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      />
-          </div>
+          <ImageInput label='Item Image' imageUrl={imageUrl} setImageUrl = {setImageUrl} endpoint="imageUploader"/>
         </div>
         <SubmitButton isLoading={loading} title="Item" />
       </form>
-      {/* Header */}
-      {/* Header */}
     </div>
   );
 }

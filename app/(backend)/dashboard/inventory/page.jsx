@@ -1,7 +1,7 @@
 'use client'
 import FixedHeader from '@/components/dashboard/FixedHeader'
 import OptionsCard from '@/components/dashboard/OptionsCard'
-import { Bike, Bolt, Boxes, Component, ScrollText, Wrench } from 'lucide-react';
+import { Bike, Boxes, Diff, Pilcrow, Warehouse, Wrench } from 'lucide-react';
 import React from 'react'
 
 export default function Inventory
@@ -13,7 +13,7 @@ export default function Inventory
       link: "/dashboard/inventory/items/new",
       linkTitle: "New Item",
       enabled: true,
-      icon: Bike
+      icon: Wrench
     },
     {
       title: "Categories",
@@ -21,7 +21,7 @@ export default function Inventory
       link: "/dashboard/inventory/categories/new",
       linkTitle: "New Category",
       enabled: true,
-      icon: Boxes
+      icon: Pilcrow
     },
     {
       title: "Brands",
@@ -29,7 +29,7 @@ export default function Inventory
       link: "/dashboard/inventory/brands/new",
       linkTitle: "New Brand",
       enabled: true,
-      icon: ScrollText
+      icon: Bike
     },
     {
       title: "Warehouse",
@@ -37,7 +37,7 @@ export default function Inventory
       link: "/dashboard/inventory/warehouse/new",
       linkTitle: "New Warehouse",
       enabled: true,
-      icon: ScrollText
+      icon: Warehouse
     },
     {
       title: "Units",
@@ -45,13 +45,21 @@ export default function Inventory
       link: "/dashboard/inventory/units/new",
       linkTitle: "New Unit",
       enabled: true,
-      icon: Component
+      icon: Boxes
+    },
+    {
+      title: "Inventory Adjustment",
+      description: "Transfer Stock from the warehouse",
+      link: "/dashboard/inventory/adjustments/new",
+      linkTitle: "New Adjustment",
+      enabled: true,
+      icon: Diff
     },
   ]
   return (
     <div>
     <FixedHeader newLink="/dashboard/inventory/items/new" />
-    <div className="grid grid-col-1 lg:grid-cols-2 py-8 px-16 gap-6">
+    <div className="grid grid-col-1 lg:grid-cols-3 md:grid-cols-2 py-8 px-16 gap-6">
     {
       optionsCards.map((card,i)=>{
         return(
