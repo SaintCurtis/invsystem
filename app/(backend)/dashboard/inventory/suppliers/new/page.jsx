@@ -1,33 +1,22 @@
 "use client"
 
-import SelectInput from '@/components/FormInput/SelectInput';
+import { makePostRequest } from '@/lib/apiRequest';
 import SubmitButton from '@/components/FormInput/SubmitButton';
 import TextAreaInput from '@/components/FormInput/TextAreaInput';
 import TextInput from '@/components/FormInput/TextInput';
-import { makePostRequest } from '@/lib/apiRequest';
-
+import FormHeader from '@/components/dashboard/FormHeader';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function AddInventoryForm() {
-  const Items = [
-    {
-      label: "Item A",
-      value: ""
-    },
-    {
-      label: "Item B",
-      value: ""
-    },
-  ]
-  const Branches = [
+export default function NewSupplier() {
+  const selectOptions = [
     {
       label: "Headquarters",
-      value: "hfkjbdfbher"
+      value: "headquarters"
     },
     {
       label: "Branch",
-      value: "egyeyvxhvgds"
+      value: "branch"
     },
   ]
   const {
@@ -42,10 +31,12 @@ export default function AddInventoryForm() {
   const [loading, setLoading] = useState(false);
   async function onSubmit(data) {
     console.log(data)
-   makePostRequest(setLoading,"api/adjustments/add",data,"AddStockAdjustment",reset)
+    makePostRequest(setLoading,"api/supplier",data,"Supplier",reset);
   }
   return (
     <div>
+      {/* Header */}
+      <FormHeader title="New supplier" href="/dashboard/inventory" />
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -53,46 +44,64 @@ export default function AddInventoryForm() {
       >
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
         <TextInput
-          label="Reference Number"
-          name="referenceNumber"
+          label="Suppliers Name"
+          name="title"
           register={register}
-          type='number'
+          errors={errors}
+          options = {selectOptions}
+          className='w-full'
+          />
+        <TextInput
+          label="Suppliers Phone"
+          name="phone"
+          register={register}
           errors={errors}
           className='w-full'
           />
         <TextInput
-          label="Date"
-          name="date"
+          label="Suppliers Email"
+          name="email"
+          type="email"
           register={register}
-          type='date'
           errors={errors}
           className='w-full'
-          timeStamp = "timestamp"
-          />
-          <SelectInput 
-          name="itemId" 
-          label="Select the Item"
-          register={register}
-          className='w-full'
-          options={Items}
           />
         <TextInput
-          label="Enter Quantity of Stock to Add"
-          name="addStockQty"
+          label="Suppliers Address"
+          name="address"
           register={register}
-          type='number'
           errors={errors}
           className='w-full'
           />
-          <SelectInput 
-          name="receivingWarehouseId" 
-          label="Select the Warehouse to receive stock"
+        
+        <TextInput
+          label="Suppliers Contact Person"
+          name="contactPerson"
           register={register}
+          errors={errors}
           className='w-full'
-          options={Branches}
+          />
+          <TextInput
+          label="Supplier Code"
+          name="supplierCode"
+          register={register}
+          errors={errors}
+          className='w-full'
+          />
+          <TextInput
+          label="Supplier TIN"
+          name="taxID"
+          register={register}
+          errors={errors}
           />
           <TextAreaInput
-          label="Adjustments Notes"
+          label="Supplier Payment Terms"
+          name="paymentTerms"
+          register={register}
+          errors={errors}
+          />
+          <TextAreaInput
+          label="Notes"
           name="notes"
           register={register}
           errors={errors}
@@ -100,8 +109,10 @@ export default function AddInventoryForm() {
           
           
         </div>
-        <SubmitButton isLoading={loading} title=" Add stock" />
+        <SubmitButton isLoading={loading} title="Supplier" />
       </form>
+      {/* Header */}
+      {/* Header */}
     </div>
   );
 }

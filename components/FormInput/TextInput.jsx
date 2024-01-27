@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function TextInput({ name, type = "text", label, errors, register, isRequired = true, className = "sm:col-span-2" }) {
+export default function TextInput({ name, type = "text", label, errors, register, isRequired = true, className = "sm:col-span-2", defaultValue = ""}) {
   // const { register: formRegister, formState: { errors } } = useForm();  // Change variable name
 
   return (

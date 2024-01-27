@@ -1,7 +1,7 @@
 'use client'
 import FixedHeader from '@/components/dashboard/FixedHeader'
 import OptionsCard from '@/components/dashboard/OptionsCard'
-import { Bike, Boxes, Diff, Pilcrow, Warehouse, Wrench } from 'lucide-react';
+import { Bike, Boxes, Diff, Factory, Pilcrow, Warehouse, Wrench } from 'lucide-react';
 import React from 'react'
 
 export default function Inventory
@@ -46,6 +46,14 @@ export default function Inventory
       linkTitle: "New Unit",
       enabled: true,
       icon: Boxes
+    },
+    {
+      title: "Suppliers",
+      description: "Tweak your item prices for specific contacts or transaction",
+      link: "/dashboard/inventory/suppliers/new",
+      linkTitle: "New Supplier",
+      enabled: true,
+      icon: Factory
     },
     {
       title: "Inventory Adjustment",

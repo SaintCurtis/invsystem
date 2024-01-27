@@ -3,8 +3,10 @@
 import SubmitButton from '@/components/FormInput/SubmitButton';
 import TextInput from '@/components/FormInput/TextInput';
 import FormHeader from '@/components/dashboard/FormHeader';
+import { makePostRequest } from '@/lib/apiRequest';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 export default function Newbrand() {
   const {
@@ -19,27 +21,8 @@ export default function Newbrand() {
   const [loading, setLoading] = useState(false);
   async function onSubmit(data) {
     console.log(data)
-    setLoading(true);
-    const baseUrl = "http://localhost:3000"
-    try {
-      const response = await fetch(`${baseUrl}/api/brands`,{
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
-      console.log(response)
-      if(response.ok){
-        console.log(response)
-        setLoading(false)
-        reset();
-      }
-      
-    } catch (error) {
-      console.error('Error:',error)
-      
-    }
+    makePostRequest(setLoading,"api/brands",data,"Brand",reset)
+ 
   }
   return (
     <div>

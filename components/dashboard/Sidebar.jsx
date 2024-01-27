@@ -31,6 +31,10 @@ export default function Sidebar() {
       title:"Inventory Adjustment",
       href:"/dashboard/inventory"
     },
+    {
+      title:"Supplier",
+      href:"/dashboard/inventory"
+    },
   ];
   const salesLinks =[
     {
@@ -115,7 +119,7 @@ export default function Sidebar() {
     {/* Links */}
 
     <nav className='flex flex-col gap-3 px-3 py-6'>
-    <Link className='flex items-center space-x-2 bg-blue-600 text-slate-50 p-2 rounded-md' href="#">
+    <Link className='flex items-center space-x-2 bg-blue-600 text-slate-50 p-2 rounded-md' href="/">
     <Home className="w-4 h-4" />
     <span>Home</span>
     </Link> 
