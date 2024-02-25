@@ -22,13 +22,14 @@ model Item {
   unit         Unit     @relation(fields: [unitId], references: [id])
   unitId       String   @db.ObjectId
   brand        Brand    @relation(fields: [brandId], references: [id])
-  brandId      String   @db.ObjectId
+  brandId       String   @db.ObjectId
+  warehouse     Warehouse  @relation(fields: [warehouseId], references: [id])
+  warehouseId     String @db.ObjectId
   sellingPrice    Float
   buyingPrice    Float
   supplier       Supplier    @relation(fields: [supplierId], references: [id])
   supplierId      String   @db.ObjectId
   reOrderPoint Int
-  location     String?
   imageUrl     String
   weight       Float?
   dimensions   String?
@@ -71,6 +72,7 @@ model Warehouse {
   title                   String
   location                String?
   description             String?
+  Item            Item[]
   warehouseType           String
   createdAt    DateTime @default(now())
   updatedAt DateTime @updatedAt

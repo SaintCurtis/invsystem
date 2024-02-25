@@ -13,12 +13,12 @@ import toast from 'react-hot-toast';
 export default function NewWarehouse() {
   const selectOptions = [
     {
-      label: "Headquarters",
-      value: "headquarters"
+      title: "Headquarters",
+      id: "headquarters"
     },
     {
-      label: "Branch",
-      value: "branch"
+      title: "Branch",
+      id: "branch"
     },
   ]
   const {
@@ -39,7 +39,7 @@ export default function NewWarehouse() {
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Warehouse" href="/dashboard/inventory" />
+      <FormHeader title="New Warehouse" href="/dashboard/inventory/warehouse" />
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}

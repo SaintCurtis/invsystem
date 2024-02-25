@@ -5,13 +5,11 @@ import SelectInput from '@/components/FormInput/SelectInput';
 import SubmitButton from '@/components/FormInput/SubmitButton';
 import TextAreaInput from '@/components/FormInput/TextAreaInput';
 import TextInput from '@/components/FormInput/TextInput';
-import FormHeader from '@/components/dashboard/FormHeader';
 import { makePostRequest } from '@/lib/apiRequest';
-import { getData } from '@/lib/getData';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default async function CreateItemForm({categories,units,brands,warehouses,suppliers,}) {
+export default function CreateItemForm({categories,units,brands,warehouses,suppliers,}) {
   const [imageUrl, setImageUrl] = useState("")
   
   const {
@@ -27,7 +25,8 @@ export default async function CreateItemForm({categories,units,brands,warehouses
   async function onSubmit(data) {
     data.imageUrl = imageUrl;
     console.log(data);
-    makePostRequest(setLoading,"api/items",data,"Item",reset)
+    makePostRequest(setLoading,"api/items",data,"Item",reset);
+    setImageUrl("")
  }
   return (
       <form

@@ -8,7 +8,7 @@ export async function POST (request){
             data:{title,location,warehouseType:type, description}
         });
         console.log(warehouses);
-        return NextResponse.json(warehouse);
+        return NextResponse.json(warehouses);
     } catch (error) {
         console.log(error)
         return NextResponse.json({

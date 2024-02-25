@@ -8,7 +8,7 @@ export default function Header() {
     <div className='bg-gray-100 h-12 flex items-center justify-between px-8 border-b border-slate-200'>
     <div className="flex gap-3">
     {/* Recent Activities */}
-    <button>
+    <button className='hidden lg:block'>
     <History className='w-6 h-6' />
     </button>
     {/* Search */}

@@ -9,27 +9,8 @@ import { makePostRequest } from '@/lib/apiRequest';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function AddInventoryForm() {
-  const Items = [
-    {
-      label: "Item A",
-      value: ""
-    },
-    {
-      label: "Item B",
-      value: ""
-    },
-  ]
-  const Branches = [
-    {
-      label: "Headquarters",
-      value: "hfkjbdfbher"
-    },
-    {
-      label: "Branch",
-      value: "egyeyvxhvgds"
-    },
-  ]
+export default function AddInventoryForm({items,warehouses}) {
+  
   const {
     register,
     handleSubmit,
@@ -74,7 +55,7 @@ export default function AddInventoryForm() {
           label="Select the Item"
           register={register}
           className='w-full'
-          options={Items}
+          options={items}
           />
         <TextInput
           label="Enter Quantity of Stock to Add"
@@ -89,7 +70,7 @@ export default function AddInventoryForm() {
           label="Select the Warehouse to receive stock"
           register={register}
           className='w-full'
-          options={Branches}
+          options={warehouses}
           />
           <TextAreaInput
           label="Adjustments Notes"

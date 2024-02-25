@@ -36,7 +36,7 @@ export default function NewSupplier() {
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New supplier" href="/dashboard/inventory" />
+      <FormHeader title="New supplier" href="/dashboard/inventory/suppliers" />
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}

@@ -27,7 +27,7 @@ export default function Newbrand() {
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Brand" href="/dashboard/inventory" />
+      <FormHeader title="New Brand" href="/dashboard/inventory/brands" />
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}

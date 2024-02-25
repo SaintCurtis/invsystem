@@ -1,11 +1,32 @@
+import { data } from "autoprefixer";
+import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function POST (request){
         try {
-            const {title, categoryId,sku,barcode,qty,unitId,brandId,buyingPrice,sellingPrice,supplierId,reOrderPoint,warehouseId,weight,dimensions,taxRate,description,notes,imageUrl}=await request.json();
-            const item =await db.unit.create({
+            const itemData = await request.json();
+
+            const item =await db.item.create({
                 data:{
-                    title, categoryId,sku,barcode,qty,unitId,brandId,buyingPrice,sellingPrice,supplierId,reOrderPoint,warehouseId,weight,dimensions,taxRate,description,notes,imageUrl}
+                    title:itemData.title,
+                    categoryId:itemData.categoryId,
+                    sku:itemData.sku,
+                    barcode:itemData.barcode,
+                    quantity:parseInt(itemData.qty),
+                    unitId:itemData.unitId,
+                    brandId:itemData.brandId,
+                    buyingPrice:parseFloat(itemData.buyingPrice),
+                    sellingPrice:parseFloat(itemData.sellingPrice),
+                    supplierId:itemData.supplierId,
+                    reOrderPoint:parseInt(itemData.reOrderPoint),
+                    warehouseId:itemData.warehouseId,
+                    weight:parseFloat(itemData.weight),
+                    dimensions:itemData.dimensions,
+                    taxRate:parseFloat(itemData.taxRate),
+                    description:itemData.description,
+                    notes:itemData.notes,
+                    imageUrl:itemData.imageUrl
+                }
             });
             console.log(item);
         return NextResponse.json(data);
@@ -14,6 +35,29 @@ export async function POST (request){
         return NextResponse.json({
             error,
             message:" Failed to create an item"
+        },{
+            status: 500,
+        })
+    }
+}
+
+export async function GET(request){
+    try {
+        const items = await db.item.findMany({
+            orderBy:{
+             createdAt: 'desc' //latest warehouse
+             },
+             include: {
+                category: true,
+                supplier: true,
+             }
+        })
+      return NextResponse.json(items);
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({
+            error,
+            message:" Failed to fetch the item"
         },{
             status: 500,
         })
