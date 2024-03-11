@@ -26,6 +26,9 @@ export async function GET(request){
             orderBy:{
                 createdAt: 'desc' //latest warehouse
             },
+            include: {
+                items: true,
+            }
         })
       return NextResponse.json(warehouses);
     } catch (error) {
@@ -33,6 +36,26 @@ export async function GET(request){
         return NextResponse.json({
             error,
             message:" Failed to fetch a warehouse"
+        },{
+            status: 500,
+        })
+    }
+}
+
+export async function DELETE(request){
+    try {
+        const id = request.nextUrl.searchParams.get("id")
+        const  deletedWarehouse = await db.warehouse.delete({
+            where: {
+                id,
+            },
+        })
+      return NextResponse.json(deletedWarehouse);
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({
+            error,
+            message:" Failed to delete warehouse"
         },{
             status: 500,
         })

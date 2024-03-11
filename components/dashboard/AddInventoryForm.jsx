@@ -9,7 +9,7 @@ import { makePostRequest } from '@/lib/apiRequest';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function AddInventoryForm({items,warehouses}) {
+export default function AddInventoryForm({items,warehouses,supplier}) {
   
   const {
     register,
@@ -39,7 +39,6 @@ export default function AddInventoryForm({items,warehouses}) {
           register={register}
           type='number'
           errors={errors}
-          className='w-full'
           />
         <TextInput
           label="Date"
@@ -56,6 +55,13 @@ export default function AddInventoryForm({items,warehouses}) {
           register={register}
           className='w-full'
           options={items}
+          />
+          <SelectInput 
+          name="supplierId" 
+          label="Select the Supplier"
+          register={register}
+          className='w-full'
+          options={supplier}
           />
         <TextInput
           label="Enter Quantity of Stock to Add"

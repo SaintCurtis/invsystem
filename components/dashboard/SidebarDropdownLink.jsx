@@ -7,7 +7,7 @@ import {
 import CollapsibleLink from './CollapsibleLink';
 import { ChevronRight, ChevronDown } from 'lucide-react';  // Assuming you have a ChevronLeft icon
 
-export default function SidebarDropdownLink({ title, items, icon: Icon }) {
+export default function SidebarDropdownLink({ title, items, icon: Icon, setShowSidebar}) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -24,9 +24,16 @@ export default function SidebarDropdownLink({ title, items, icon: Icon }) {
                 {isDropdownOpen ? <ChevronDown className='w-4 h-4'/> : <ChevronRight className='w-4 h-4'/>}
             </CollapsibleTrigger>
             <CollapsibleContent>
-                {items.map((item, i) => (
-                    <CollapsibleLink key={i} href={item.href} title={item.title} />
-                ))}
+                {items.map((item, i) => {
+                    return (
+                    <CollapsibleLink
+                    setShowSidebar={setShowSidebar}
+                    key={i}
+                    href={item.href}
+                    title={item.title}
+                    />
+                    );
+                })}
             </CollapsibleContent>
         </Collapsible>
     );

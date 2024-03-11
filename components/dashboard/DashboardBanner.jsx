@@ -6,7 +6,7 @@ import { useState } from 'react'
 export default function DashboardBanner() {
     const [hidden, setHidden]=useState(false)  
   return (
-    <div className={`${hidden?"hidden":'grid grid-cols-12 items-center gap-3 py-6 px-16 bg-white relative'}`}>
+    <div className={`${hidden?"hidden":'hidden lg:grid grid-cols-12 items-center gap-3 py-6 px-16 bg-white relative'}`}>
     {/* Icon */}
     <div className="col-span-2">
     <CreditCard className='w-16 h-16 text-slate-500'/>

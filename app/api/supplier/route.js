@@ -11,7 +11,7 @@ export async function POST (request){
         return NextResponse.json(suppliers);
     } catch (error) {
         console.log(error)
-        return NextResponse.json({
+        return NextResponse.json({ 
             error,
             message:"Failed to create a supplier"
         },{
@@ -33,6 +33,26 @@ export async function GET(request){
         return NextResponse.json({
             error,
             message:" Failed to fetch the supplier"
+        },{
+            status: 500,
+        })
+    }
+}
+
+export async function DELETE(request){
+    try {
+        const id = request.nextUrl.searchParams.get("id")
+        const  deletedSupplier = await db.supplier.delete({
+            where: {
+                id,
+            }
+        })
+      return NextResponse.json(deletedSupplier);
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({
+            error,
+            message:" Failed to delete supplier"
         },{
             status: 500,
         })

@@ -4,7 +4,7 @@ import FormHeader from '@/components/dashboard/FormHeader';
 import TransferInventoryForm from '@/components/dashboard/TransferInventoryForm';
 import { Minus, Plus } from 'lucide-react';
 import React, { useState } from 'react';
-export default function AdjustmentForm({items,warehouses}) {
+export default function AdjustmentForm({items,warehouses,supplier}) {
   const tabs = [
     {
       title: 'Add Stock',
@@ -21,10 +21,12 @@ export default function AdjustmentForm({items,warehouses}) {
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Adjustments" href="/dashboard/inventory/adjustments" />
+      <FormHeader 
+      title="New Adjustments" 
+      href="/dashboard/inventory/adjustments" />
       {/* Form */}
 
-<div className="border-bborder-gray-200 dark:border-gray-700 w-full max-w-4xl px-4 py-2 bg-white border mx-auto my-4 shadow rounded">
+<div className="border-b border-gray-200 dark:border-gray-700 w-full max-w-4xl px-4 py-2 bg-white border mx-auto my-4 shadow rounded">
 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
     
 {
@@ -46,7 +48,7 @@ export default function AdjustmentForm({items,warehouses}) {
 </div>
 
 {activeForm==="add"? (
-<AddInventoryForm items={items} warehouses={warehouses}/>
+<AddInventoryForm supplier={supplier} items={items} warehouses={warehouses}/>
   ):(
     <TransferInventoryForm items={items} warehouses={warehouses} />
   )}

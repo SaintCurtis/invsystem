@@ -4,31 +4,49 @@ import SubmitButton from '@/components/FormInput/SubmitButton';
 import TextAreaInput from '@/components/FormInput/TextAreaInput';
 import TextInput from '@/components/FormInput/TextInput';
 import FormHeader from '@/components/dashboard/FormHeader';
-import { makePostRequest } from '@/lib/apiRequest';
+import { makePostRequest, makePutRequest } from '@/lib/apiRequest';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-export default function NewUnit() {
+export default function NewUnit({initialData={}, isUpdate=false}) {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: { title: '' }, // Provide default values for your form fields
+    defaultValues: initialData// Provide default values for your form fields
   });
   
   const [loading, setLoading] = useState(false);
+  function redirect() {
+    router.push("/dashboard/inventory/units")
+  }
   async function onSubmit(data) {
     console.log(data)
-    setLoading(true);
-   makePostRequest(setLoading,"api/units",data,"Unit",reset)
+    
+    if(isUpdate){
+      //Update request
+makePutRequest(
+  setLoading,
+  `api/units/${initialData.id}`,
+  data,
+  "Unit",
+  redirect,
+  reset
+  );
+    }else{
+      makePostRequest(setLoading,"api/units",data,"Unit",reset)
+    }
+    
   }
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Unit" href="/dashboard/inventory/units" />
+      <FormHeader title={isUpdate?"Update Unit":"New Unit"} href="/dashboard/inventory/units" />
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -50,9 +68,8 @@ export default function NewUnit() {
           className='w-full'
           />
           
-          
         </div>
-        <SubmitButton isLoading={loading} title="unit" />
+        <SubmitButton isLoading={loading} title={isUpdate?"Updated Unit":"New Unit"} />
       </form>
       {/* Header */}
       {/* Header */}

@@ -1,42 +1,54 @@
 "use client"
 
-import { makePostRequest } from '@/lib/apiRequest';
 import SubmitButton from '@/components/FormInput/SubmitButton';
-import TextAreaInput from '@/components/FormInput/TextAreaInput';
+import TextareaInput from '@/components/FormInput/TextAreaInput';
 import TextInput from '@/components/FormInput/TextInput';
 import FormHeader from '@/components/dashboard/FormHeader';
+import { makePostRequest, makePutRequest } from '@/lib/apiRequest';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
-export default function NewSupplier() {
-  const selectOptions = [
-    {
-      label: "Headquarters",
-      value: "headquarters"
-    },
-    {
-      label: "Branch",
-      value: "branch"
-    },
-  ]
-  const {
+export default function NewSupplier({initialData={},
+  isUpdate=false}) {
+    const router = useRouter()
+  const { 
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: { title: '' }, // Provide default values for your form fields
-  });
-  
+    defaultValues: initialData,
+      }) // Provide default values for your form fields
   const [loading, setLoading] = useState(false);
+  function redirect(){
+    router.replace("/dashboard/inventory/suppliers")
+  }
   async function onSubmit(data) {
-    console.log(data)
-    makePostRequest(setLoading,"api/supplier",data,"Supplier",reset);
+    console.log(data);
+    if(isUpdate){
+//Update request
+makePutRequest(
+  setLoading,
+  `api/supplier/${initialData.id}`,
+  data,
+  "Supplier",
+  redirect,
+  reset
+  );
+    }
+    else{
+      makePostRequest(setLoading,"api/supplier",data,"supplier",reset)
+    }
+ 
   }
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New supplier" href="/dashboard/inventory/suppliers" />
+      <FormHeader
+      title={isUpdate?"Update Supplier":"New Supplier"}
+      href="/dashboard/inventory/suppliers" />
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -48,7 +60,6 @@ export default function NewSupplier() {
           name="title"
           register={register}
           errors={errors}
-          options = {selectOptions}
           className='w-full'
           />
         <TextInput
@@ -94,22 +105,20 @@ export default function NewSupplier() {
           register={register}
           errors={errors}
           />
-          <TextAreaInput
+          <TextareaInput
           label="Supplier Payment Terms"
           name="paymentTerms"
           register={register}
           errors={errors}
           />
-          <TextAreaInput
+          <TextareaInput
           label="Notes"
           name="notes"
           register={register}
           errors={errors}
-          />
-          
-          
+          />    
         </div>
-        <SubmitButton isLoading={loading} title="Supplier" />
+        <SubmitButton isLoading={loading} title={isUpdate?"Updated Supplier":"New Supplier"} />
       </form>
       {/* Header */}
       {/* Header */}
